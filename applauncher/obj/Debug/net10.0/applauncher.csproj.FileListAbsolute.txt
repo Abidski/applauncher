@@ -20,3 +20,4 @@ C:\Users\abida\RiderProjects\applauncher\applauncher\obj\Debug\net10.0\refint\ap
 C:\Users\abida\RiderProjects\applauncher\applauncher\obj\Debug\net10.0\applauncher.pdb
 C:\Users\abida\RiderProjects\applauncher\applauncher\obj\Debug\net10.0\applauncher.genruntimeconfig.cache
 C:\Users\abida\RiderProjects\applauncher\applauncher\obj\Debug\net10.0\ref\applauncher.dll
+C:\Users\abida\RiderProjects\applauncher\applauncher\obj\Debug\net10.0\applauncher.sourcelink.json
