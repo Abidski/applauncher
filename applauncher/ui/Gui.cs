@@ -12,9 +12,10 @@ internal static class Gui
     private const int fontSize = 20;
     private const int textPadding = 10;
     public static IntPtr windowHandle;
+    private static readonly List<Applications.App> Apps = Applications.GetDesktopApps();
 
 
-    public static void InitializeWindow()
+    public static void InitializeWindowAsHidden()
     {
         SetConfigFlags(ConfigFlags.UndecoratedWindow | ConfigFlags.TransparentWindow | ConfigFlags.HiddenWindow);
         InitWindow(screenWidth, screenHeight, "launcher");
@@ -25,19 +26,19 @@ internal static class Gui
         }
     }
 
-    public static void RunGui()
+    public static void RunGuiHidden()
     {
-        var apps = Applications.GetDesktopApps();
+        SetTargetFPS(1);
+        BeginDrawing();
+        EndDrawing();
+    }
 
-        while (!WindowShouldClose())
-        {
-            BeginDrawing();
-            SetWindow();
-            DrawPrograms(apps);
-            EndDrawing();
-        }
-
-        CloseWindow();
+    public static void RunGuiActive()
+    {
+        BeginDrawing();
+        SetWindow();
+        DrawPrograms(Apps);
+        EndDrawing();
     }
 
 

@@ -1,5 +1,6 @@
 using System.Drawing;
 using System.Runtime.InteropServices;
+using applauncher.ui;
 
 namespace applauncher;
 
@@ -16,12 +17,29 @@ public class Program
     [DllImport("user32.dll")]
     private static extern int GetMessage(out TagMsg lpMsg, IntPtr hWnd, uint wMsgFilterMin, uint wMsgFilterMax);
 
+    [DllImport("user32.dll")]
+    private static extern bool ShowWindow(IntPtr hWnd, int nCmdShow);
+
+    [DllImport("user32.dll")]
+    private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+    [STAThread]
     private static int Main(string[] args)
     {
+        Run();
+        return 1;
+    }
+
+    private static void Run()
+    {
+        Gui.InitializeWindowAsHidden();
         var messagePump = new Thread(() => MessagePump());
         messagePump.Start();
-
-        return 1;
+        while (true)
+            if (showLauncher)
+                Gui.RunGuiActive();
+            else
+                Gui.RunGuiHidden();
     }
 
     private static void MessagePump()
