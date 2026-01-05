@@ -10,6 +10,7 @@ public class Program
     private const uint Q = 0x51;
     private const int HOTKEY_PRESSED_CODE = 786;
     private static volatile bool showLauncher;
+    private static bool Quit;
 
     [DllImport("user32.dll")]
     private static extern bool RegisterHotKey(IntPtr hWnd, int id, uint fsModifiers, uint vk);
@@ -23,6 +24,10 @@ public class Program
     [DllImport("user32.dll")]
     private static extern bool SetForegroundWindow(IntPtr hWnd);
 
+    [DllImport("user32.dll")]
+    private static extern bool SetWindowPos(IntPtr hWnd, IntPtr hWndInsertAfter,
+        int X, int Y, int cx, int cy, uint uFlags);
+
     [STAThread]
     private static int Main(string[] args)
     {
@@ -32,24 +37,54 @@ public class Program
 
     private static void Run()
     {
-        Gui.InitializeWindowAsHidden();
-        var messagePump = new Thread(() => MessagePump());
+        Gui.InitializeWindowAsActive();
+        var hWnd = Gui.windowHandle;
+        if (hWnd == IntPtr.Zero)
+            Console.WriteLine("Window handle error");
+        else
+            HideWindow(hWnd);
+
+
+        var messagePump = new Thread(() => MessagePump(hWnd));
         messagePump.Start();
-        while (true)
-            if (showLauncher)
-                Gui.RunGuiActive();
-            else
-                Gui.RunGuiHidden();
+        while (!Quit)
+        {
+            Gui.RunGuiActive();
+            ToggleLauncher(showLauncher, hWnd);
+        }
     }
 
-    private static void MessagePump()
+    private static void MessagePump(IntPtr hWnd)
     {
         TagMsg message = default;
         Console.WriteLine("Starting messagePumpThread");
         var status = RegisterHotKey(IntPtr.Zero, 0, ALT, Q);
-        while (GetMessage(out message, IntPtr.Zero, 0, 0) != 0 && !showLauncher)
+        while (GetMessage(out message, IntPtr.Zero, 0, 0) != 0 && !Quit)
             if (message.message == 786)
+            {
                 showLauncher = !showLauncher;
+                Console.WriteLine("HotKetPressed");
+            }
+    }
+
+    private static void ToggleLauncher(bool show, IntPtr hWnd)
+    {
+        if (show)
+            ShowWindow(hWnd);
+        else
+            HideWindow(hWnd);
+    }
+
+
+    private static void HideWindow(IntPtr hWnd)
+    {
+        ShowWindow(hWnd, 0);
+    }
+
+    private static void ShowWindow(IntPtr hWnd)
+    {
+        ShowWindow(hWnd, 5);
+        SetForegroundWindow(hWnd);
     }
 
     [StructLayout(LayoutKind.Sequential)]

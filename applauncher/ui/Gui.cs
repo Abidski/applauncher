@@ -15,6 +15,17 @@ internal static class Gui
     private static readonly List<Applications.App> Apps = Applications.GetDesktopApps();
 
 
+    public static void InitializeWindowAsActive()
+    {
+        SetConfigFlags(ConfigFlags.UndecoratedWindow | ConfigFlags.TransparentWindow);
+        InitWindow(screenWidth, screenHeight, "launcher");
+
+        unsafe
+        {
+            windowHandle = (IntPtr)GetWindowHandle();
+        }
+    }
+
     public static void InitializeWindowAsHidden()
     {
         SetConfigFlags(ConfigFlags.UndecoratedWindow | ConfigFlags.TransparentWindow | ConfigFlags.HiddenWindow);

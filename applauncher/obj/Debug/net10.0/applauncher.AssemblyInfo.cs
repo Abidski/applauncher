@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("applauncher")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ac7dcfce9dc1ce4d32efece1342151e14558dba3")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4b1789d8adf4c512fc7d899b91a742091ac255e0")]
 [assembly: System.Reflection.AssemblyProductAttribute("applauncher")]
 [assembly: System.Reflection.AssemblyTitleAttribute("applauncher")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
