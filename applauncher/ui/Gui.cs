@@ -17,8 +17,10 @@ internal static class Gui
 
     public static void InitializeWindowAsActive()
     {
-        SetConfigFlags(ConfigFlags.UndecoratedWindow | ConfigFlags.TransparentWindow);
+        //SetConfigFlags(ConfigFlags.UndecoratedWindow | ConfigFlags.TransparentWindow);
+        SetConfigFlags(ConfigFlags.UndecoratedWindow);
         InitWindow(screenWidth, screenHeight, "launcher");
+        SetWindow();
 
         unsafe
         {
@@ -30,6 +32,7 @@ internal static class Gui
     {
         SetConfigFlags(ConfigFlags.UndecoratedWindow | ConfigFlags.TransparentWindow | ConfigFlags.HiddenWindow);
         InitWindow(screenWidth, screenHeight, "launcher");
+        SetWindow();
 
         unsafe
         {
@@ -41,13 +44,14 @@ internal static class Gui
     {
         SetTargetFPS(1);
         BeginDrawing();
+        ClearBackground(Color.Blank);
         EndDrawing();
     }
 
     public static void RunGuiActive()
     {
+        SetTargetFPS(60);
         BeginDrawing();
-        SetWindow();
         DrawPrograms(Apps);
         EndDrawing();
     }
@@ -75,7 +79,6 @@ internal static class Gui
                             UseShellExecute = true
                         }
                     );
-                    CloseWindow();
                 }
             }
             else
@@ -93,7 +96,7 @@ internal static class Gui
         var middleY = GetMonitorHeight(currentMonitor) / 2 - 200;
         var middleX = GetMonitorWidth(currentMonitor) / 2 - 200;
         SetWindowPosition(middleX, middleY);
-        ClearBackground(Color.Blank);
+        ClearBackground(new Color(10, 20, 12, 100));
     }
 
     public static float GetScale()

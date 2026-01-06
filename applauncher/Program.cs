@@ -49,10 +49,14 @@ public class Program
         messagePump.Start();
         while (!Quit)
         {
-            Gui.RunGuiActive();
-            ToggleLauncher(showLauncher, hWnd);
+            if (!showLauncher)
+                Gui.RunGuiHidden();
+            else
+                Gui.RunGuiActive();
+            Visibility(showLauncher, hWnd);
         }
     }
+
 
     private static void MessagePump(IntPtr hWnd)
     {
@@ -67,7 +71,7 @@ public class Program
             }
     }
 
-    private static void ToggleLauncher(bool show, IntPtr hWnd)
+    private static void Visibility(bool show, IntPtr hWnd)
     {
         if (show)
             ShowWindow(hWnd);
