@@ -9,7 +9,7 @@ public class Program
     private const uint ALT = 0x0001;
     private const uint Q = 0x51;
     private const int HOTKEY_PRESSED_CODE = 786;
-    private static volatile bool showLauncher;
+    public static volatile bool showLauncher;
     private static bool Quit;
 
     [DllImport("user32.dll")]

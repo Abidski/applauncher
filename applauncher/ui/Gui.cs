@@ -52,6 +52,7 @@ internal static class Gui
     {
         SetTargetFPS(60);
         BeginDrawing();
+        ClearBackground(new Color(15,1,15,100));
         DrawPrograms(Apps);
         EndDrawing();
     }
@@ -59,6 +60,11 @@ internal static class Gui
 
     public static void DrawPrograms(List<Applications.App> apps)
     {
+        if (WindowShouldClose()&&Program.showLauncher)
+        {
+            Program.showLauncher = !Program.showLauncher;
+            return;
+        }
         var yPos = 0;
         foreach (var app in apps)
         {
@@ -79,6 +85,7 @@ internal static class Gui
                             UseShellExecute = true
                         }
                     );
+                    Program.showLauncher = !Program.showLauncher;
                 }
             }
             else
@@ -96,7 +103,6 @@ internal static class Gui
         var middleY = GetMonitorHeight(currentMonitor) / 2 - 200;
         var middleX = GetMonitorWidth(currentMonitor) / 2 - 200;
         SetWindowPosition(middleX, middleY);
-        ClearBackground(new Color(10, 20, 12, 100));
     }
 
     public static float GetScale()
