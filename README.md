@@ -22,5 +22,5 @@ https://github.com/user-attachments/assets/ec98c25c-a45b-42a8-8101-8a6a35f0249c
 * Win32 Api
 * Raylib
 * OOP
-* Threads
+* Multi-Threading
 
